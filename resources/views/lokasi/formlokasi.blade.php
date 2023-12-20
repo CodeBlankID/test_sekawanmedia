@@ -27,8 +27,10 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-outline-danger" href="{{ url('lokasi') }}">Back</a>
-                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                            <a class="btn btn-outline-danger" href="{{ url('lokasi') }}"><i
+                                    class="fa-solid fa-rotate-left"></i> Back</a>
+                            <button type="submit" class="btn btn-primary float-right"><i
+                                    class="fa-solid fa-floppy-disk"></i> Submit</button>
                         </div>
                     </form>
                 </div>

@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Booking Kendaraan</h3>
+                        <h3 class="card-title">Data Maintenance Kendaraan</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -31,23 +31,19 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="form-group">
-                                            <select class="form-control filter_status" id="filter_status"
+                                            <select class="form-control maintenance_filter" id="filter_status"
                                                 data-name="status">
                                                 <option value=""
                                                     {{ empty(Request::query('status')) ? 'selected' : '' }}>
                                                     All
                                                 </option>
-                                                <option value="requested"
-                                                    {{ !empty(Request::query('status')) && Request::query('status') == 'requested' ? 'selected' : '' }}>
-                                                    Requested
+                                                <option value="pending"
+                                                    {{ !empty(Request::query('status')) && Request::query('status') == 'pending' ? 'selected' : '' }}>
+                                                    Pending
                                                 </option>
-                                                <option value="rejected"
-                                                    {{ !empty(Request::query('status')) && Request::query('status') == 'rejected' ? 'selected' : '' }}>
-                                                    Rejeted
-                                                </option>
-                                                <option value="approved"
-                                                    {{ !empty(Request::query('status')) && Request::query('status') == 'approved' ? 'selected' : '' }}>
-                                                    Approved
+                                                <option value="on-progress"
+                                                    {{ !empty(Request::query('status')) && Request::query('status') == 'on-progress' ? 'selected' : '' }}>
+                                                    On Progress
                                                 </option>
                                                 <option value="done"
                                                     {{ !empty(Request::query('status')) && Request::query('status') == 'done' ? 'selected' : '' }}>
@@ -66,24 +62,22 @@
                                             Filter By Vehicle
                                         </h3>
                                         <a class="btn btn-outline-success btn-sm d-inline float-right"
-                                            href="{{ url($exportUri) }}"><i
-                                                class="fa-solid
-                                            fa-file-arrow-down"></i>
+                                            href="{{ url($exportUri) }}"><i class="fa-solid fa-file-arrow-down"></i>
                                             Export
                                         </a>
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="form-group">
-                                            <select class="form-control filter_status" id="filter_vehicle"
+                                            <select class="form-control maintenance_filter" id="filter_vehicle"
                                                 data-name="vehicle">
                                                 <option value=""
                                                     {{ empty(Request::query('vehicle')) ? 'selected' : '' }}>
                                                     All
                                                 </option>
-                                                @foreach ($filter_vehicle as $filter_vih)
-                                                    <option value="{{ $filter_vih->id }}"
-                                                        {{ !empty(Request::query('vehicle')) && Request::query('vehicle') == $filter_vih->id ? 'selected' : '' }}>
-                                                        {{ $filter_vih->nama }}
+                                                @foreach ($filter_vehicle as $vehicle_filter)
+                                                    <option value="{{ $vehicle_filter->id }}"
+                                                        {{ !empty(Request::query('vehicle')) && Request::query('vehicle') == $vehicle_filter->id ? 'selected' : '' }}>
+                                                        {{ $vehicle_filter->nama }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -99,24 +93,22 @@
                                             Filter By Month
                                         </h3>
                                         <a class="btn btn-outline-success btn-sm d-inline float-right"
-                                            href="{{ url($exportUri) }}"><i
-                                                class="fa-solid
-                                            fa-file-arrow-down"></i>
+                                            href="{{ url($exportUri) }}"><i class="fa-solid fa-file-arrow-down"></i>
                                             Export
                                         </a>
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="form-group">
-                                            <select class="form-control filter_status" id="filter_requested"
+                                            <select class="form-control maintenance_filter" id="filter_requested"
                                                 data-name="requested">
                                                 <option value=""
                                                     {{ empty(Request::query('requested')) ? 'selected' : '' }}>
                                                     All
                                                 </option>
-                                                @foreach ($filter_request_date as $month)
-                                                    <option value="{{ $month }}"
-                                                        {{ !empty(Request::query('requested')) && Request::query('requested') == $month ? 'selected' : '' }}>
-                                                        {{ $month }}
+                                                @foreach ($filter_maintenance_date as $date_filter)
+                                                    <option value="{{ $date_filter }}"
+                                                        {{ !empty(Request::query('requested')) && Request::query('requested') == $date_filter ? 'selected' : '' }}>
+                                                        {{ $date_filter }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -132,21 +124,19 @@
                                             Filter By Year
                                         </h3>
                                         <a class="btn btn-outline-success btn-sm d-inline float-right"
-                                            href="{{ url($exportUri) }}"><i
-                                                class="fa-solid
-                                            fa-file-arrow-down"></i>
+                                            href="{{ url($exportUri) }}"><i class="fa-solid fa-file-arrow-down"></i>
                                             Export
                                         </a>
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="form-group">
-                                            <select class="form-control filter_status" id="filter_year"
+                                            <select class="form-control maintenance_filter" id="filter_year"
                                                 data-name="year">
                                                 <option value=""
                                                     {{ empty(Request::query('year')) ? 'selected' : '' }}>
                                                     All
                                                 </option>
-                                                @foreach ($filter_request_year as $year)
+                                                @foreach ($filter_maintenance_year as $year)
                                                     <option value="{{ $year }}"
                                                         {{ !empty(Request::query('year')) && Request::query('year') == $year ? 'selected' : '' }}>
                                                         {{ $year }}
@@ -163,106 +153,76 @@
                                 <tr>
                                     <th>Nama Kendaraan</th>
                                     <th>Nomor Kendaraan</th>
-                                    <th>Driver</th>
-                                    <th>Tanggal Request</th>
-                                    <th>Lama Penggunaan</th>
+                                    <th>Jadwal Service</th>
+                                    <th>Tanggal Perbaikan</th>
                                     <th>Deskripsi</th>
-                                    <th>Nama Approval</th>
-                                    <th>Requested By</th>
-                                    <th>Booking Status</th>
-                                    <th>Update Progress</th>
+                                    <th>Maintenance Status</th>
+                                    <th>Update Status</th>
                                     <th>Operation</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($databooking as $item)
+                                @foreach ($datamaintenance as $item)
                                     <tr>
                                         <td>{{ $item->kendaraan_name }}</td>
                                         <td>{{ $item->nomor_kendaraan }}</td>
-                                        <td>{{ $item->driver }}
-                                        </td>
-                                        <td>{{ $item->requested_date }}
-                                        </td>
-                                        <td>{{ $item->durasi }} Hari
-                                        </td>
+                                        <td>{{ $item->jadwal_servis }}</td>
+                                        <td>{{ $item->maintenance_date }}</td>
                                         <td>{{ $item->deskripsi }}
                                         </td>
-                                        <td>{{ $item->approval_user }}
-                                        </td>
-                                        <td>{{ $item->requested_by }}
-                                        </td>
                                         <td>
-                                            @switch($item->booking_steps)
-                                                @case('requested')
+                                            @switch($item->status)
+                                                @case('pending')
                                                     <a class="btn btn-block btn-sm bg-warning" href="#">
-                                                        {{ strtoupper($item->booking_steps) }}
+                                                        {{ strtoupper($item->status) }}
                                                     </a>
                                                 @break
 
-                                                @case('mechanical check')
-                                                    <a class="btn btn-block btn-sm  bg-primary" href="#">
-                                                        {{ strtoupper($item->booking_steps) }}
-                                                    </a>
-                                                @break
-
-                                                @case('approved')
-                                                    <a class="btn btn-block btn-sm  bg-success" href="#">
-                                                        {{ strtoupper($item->booking_steps) }}
-                                                    </a>
-                                                @break
-
-                                                @case('rejected')
-                                                    <a class="btn btn-block btn-sm  bg-danger" href="#">
-                                                        {{ strtoupper($item->booking_steps) }}
+                                                @case('on progress')
+                                                    <a class="btn btn-block btn-sm  bg-info" href="#">
+                                                        {{ strtoupper($item->status) }}
                                                     </a>
                                                 @break
 
                                                 @case('done')
-                                                    <a class="btn btn-block btn-sm  bg-info" href="#">
-                                                        {{ strtoupper($item->booking_steps) }}
+                                                    <a class="btn btn-block btn-sm  bg-success" href="#">
+                                                        {{ strtoupper($item->status) }}
                                                     </a>
                                                 @break
 
                                                 @default
                                                     <a class="btn btn-app bg-default" href="#">
-                                                        {{ strtoupper($item->booking_steps) }}
+                                                        {{ strtoupper($item->status) }}
                                                     </a>
                                                 @break
                                             @endswitch
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Select Progress</button>
+                                                <button type="button" class="btn  btn-default">Select
+                                                    Status</button>
                                                 <button type="button"
                                                     class="btn btn-default dropdown-toggle dropdown-hover dropdown-icon"
                                                     data-toggle="dropdown" aria-expanded="false">
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu" style="">
-                                                    <a class="dropdown-item {{ !empty($item->requested_date) ? 'disabled' : '' }}"
-                                                        href="{{ url('updateprogressbooking/requested/' . $item->id) }}"><i
-                                                            class="fa-solid fa-clock"></i> Requested</a>
-                                                    <a class="dropdown-item {{ !empty($item->mechanical_check_date) ? 'disabled' : '' }}"
-                                                        href="{{ url('updateprogressbooking/mechanical-check/' . $item->id) }}"><i
-                                                            class="fa-solid fa-gear"></i> Mechanical
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('updatestatusmaintenance/pending/' . $item->id) }}"><i
+                                                            class="fa-solid fa-clock"></i> Pending</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('updatestatusmaintenance/on-progress/' . $item->id) }}"><i
+                                                            class="fa-solid fa-gear"></i> On Progress
                                                         Check</a>
-                                                    <a class="dropdown-item {{ !empty($item->booking_status_date) ? 'disabled' : '' }}"
-                                                        href="{{ url('updateprogressbooking/approved/' . $item->id) }}"><i
-                                                            class="fa-solid fa-circle-check"></i> Approved</a>
-                                                    <a class="dropdown-item {{ !empty($item->booking_status_date) ? 'disabled' : '' }}"
-                                                        href="{{ url('updateprogressbooking/rejected/' . $item->id) }}"><i
-                                                            class="fa-solid fa-circle-xmark"></i> Rejected</a>
-                                                    {{-- <div class="dropdown-divider"></div> --}}
-                                                    <a class="dropdown-item {{ !empty($item->done_date) || $item->booking_steps == 'rejected' ? 'disabled' : '' }}"
-                                                        href="{{ url('updateprogressbooking/done/' . $item->id) }}"><i
-                                                            class="fa-solid fa-circle-info"></i> Done</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('updatestatusmaintenance/done/' . $item->id) }}"><i
+                                                            class="fa-solid fa-circle-check"></i> Done</a>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-outline-danger"
-                                                href="{{ url('deletebooking/' . $item->id) }}"><i
+                                                href="{{ url('deletemaintenance/' . $item->id) }}"><i
                                                     class="fa-solid fa-trash"></i> Delete</a>
                                         </td>
                                     </tr>

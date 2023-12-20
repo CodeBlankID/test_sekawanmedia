@@ -21,7 +21,6 @@
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
-
                 <form action="../../index.html" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Full name">
@@ -59,19 +58,14 @@
                         <div class="col-4">
                             <a href="{{ url('/') }}" class="btn btn-default btn-block text-center">back</a>
                         </div>
-                        <!-- /.col -->
                         <div class="col-8">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
-
             </div>
-            <!-- /.form-box -->
-        </div><!-- /.card -->
+        </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"

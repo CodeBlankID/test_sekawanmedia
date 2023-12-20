@@ -15,10 +15,6 @@
 
 <body class="login-page">
     <div class="login-box">
-        {{-- <div class="login-logo">
-            <a href="../../index2.html"><b>Administrator</b></a>
-        </div> --}}
-        <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Administrator</p>
@@ -44,7 +40,6 @@
                         <div class="col">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
                 <table class="table table-sm table-bordered mt-3">
@@ -57,24 +52,14 @@
                         <td>password123</td>
                     </tr>
                 </table>
-                {{-- <div class="text-center mt-3">
-                    <p>- OR -</p>
-                </div> --}}
-                {{-- <p class="mb-0 mt-3 text-center">
-                    <a href="{{ url('register') }}" class="text-center btn btn-block btn-default">Register</a>
-                </p> --}}
             </div>
-            <!-- /.login-card-body -->
         </div>
     </div>
-
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
     </script>
-
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
         integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
     </script>

@@ -2,18 +2,18 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Data Jabatan</h3>
                         <a class="btn  btn-sm btn-outline-success float-right" href="{{ url('addjabatan') }}">
-                            ADD DATA
+                            <i class="fa-solid fa-plus"></i> ADD DATA
                         </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover table-sm text-center">
-                            <thead>
+                            <thead class="bg-secondary">
                                 <tr>
                                     <th>Jabatan</th>
                                     <th>Deskripsi</th>
@@ -28,10 +28,19 @@
                                         <td>{{ $item->deskripsi }}
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-outline-warning"
-                                                href="{{ url("editjabatan/{$item->id}") }}">Edit</a> || <a
-                                                class="btn btn-sm btn-outline-danger"
-                                                href="{{ url("deletejabatan/{$item->id}") }}">Delete</a>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <a class="btn btn-sm btn-block btn-outline-warning"
+                                                        href="{{ url("editjabatan/{$item->id}") }}"><i
+                                                            class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <a class="btn btn-sm btn-block  btn-outline-danger"
+                                                        href="{{ url("deletejabatan/{$item->id}") }}"><i
+                                                            class="fa-solid fa-trash"></i> Delete</a>
+                                                </div>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 @endforeach

@@ -7,12 +7,12 @@
                     <div class="card-header">
                         <h3 class="card-title">Data Users</h3>
                         <a class="btn btn-sm btn-outline-success float-right" href="{{ url('addusers') }}">
-                            ADD DATA
+                            <i class="fa-solid fa-plus"></i> ADD DATA
                         </a>
                     </div>
                     <div class="card-body">
-                        <table id="example2" class="table table-bordered table-hover table-sm text-center">
-                            <thead>
+                        <table id="example2" class="table table-bordered  table-hover table-sm text-center">
+                            <thead class="bg-secondary">
                                 <tr>
                                     <th>Nama</th>
                                     <th>Email</th>
@@ -25,7 +25,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($items as $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
@@ -37,25 +36,27 @@
                                         <td>{{ $item->level }}</td>
                                         <td>{{ $item->status == '1' ? 'Active' : 'Not Active' }}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-outline-warning"
-                                                href="{{ url("editusers/{$item->id}") }}">Edit</a> || <a
-                                                class="btn btn-sm btn-outline-danger"
-                                                href="{{ url("deleteusers/{$item->id}") }}">Delete</a>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <a class="btn btn-sm btn-block btn-outline-warning"
+                                                        href="{{ url("editusers/{$item->id}") }}"><i
+                                                            class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <a class="btn btn-sm btn-block btn-outline-danger"
+                                                        href="{{ url("deleteusers/{$item->id}") }}"><i
+                                                            class="fa-solid fa-trash"></i> Delete</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
 </section>
 @include('partials.footer')
